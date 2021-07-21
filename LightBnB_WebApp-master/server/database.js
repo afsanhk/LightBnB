@@ -80,7 +80,8 @@ exports.getAllReservations = getAllReservations;
   return pool
     .query(`SELECT * FROM properties LIMIT $1`, [limit])
     .then((result) => {
-      console.log(result.rows);
+      // console.log(result.rows);
+      return result.rows; // returning this allows population of index.html
     })
     .catch((err) => {
       console.log(err.message);
