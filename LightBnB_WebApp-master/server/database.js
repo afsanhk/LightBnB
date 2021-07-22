@@ -108,7 +108,7 @@ exports.getAllReservations = getAllReservations;
   JOIN property_reviews ON properties.id = property_reviews.property_id
   `;
   
-  // 3 -- WE ONLY NEED A WHERE
+  // 3 -- WE NEED A WHERE WHEN AT LEAST ONE OF THESE 4 OPTIONS IS MET. MIN_RATING REQUIRES 'HAVING'.
   if (options.city) {
    values.push(`%${options.city}%`);
    queryString += `WHERE city LIKE $${values.length} `;
@@ -138,8 +138,8 @@ exports.getAllReservations = getAllReservations;
   // 4 -- This is always needed
   values.push(limit);
   queryString += `
-    ORDER BY cost_per_night
-    LIMIT $${values.length};
+  ORDER BY cost_per_night
+  LIMIT $${values.length};
   `;
 
   // 5
